@@ -1,0 +1,12 @@
+<launch>
+  <group ns="turtlesim">
+    <node pkg="turtlesim" type="turtlesim_node" name="turtle1">
+    <param name="forward" value="w"/>
+    <param name="backward" value="s"/>
+    <param name="right" value="d"/>
+    <param name="left" value="a"/>
+    </node>
+    <node pkg="lab_one" type="talker.py" name="sterowanie" launch-prefix="gnome-terminal -e"/>
+  </group>
+
+</launch>
