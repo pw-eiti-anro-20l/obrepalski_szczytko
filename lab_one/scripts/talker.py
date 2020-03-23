@@ -36,9 +36,9 @@ def talker():
 
 if __name__ == '__main__':
     settings = termios.tcgetattr(sys.stdin)
-    print(NICE)
+    #print(NICE)
     try:
         talker()
     except rospy.ROSInterruptException:
-    print(chr(27) + "[2J")
+    #print(chr(27) + "[2J")
         pass
