@@ -1,2 +1,21 @@
-wiki:
+Dokumentacja do zadania 1.
+
+1)Launch
+  turtlelaunch.launch --> plik do odpalena, tworzą się dwa węzły (sterowania i żółwia) z określonymi parametrami
+
+2)Scripts
+  talker --> funckja służąca do sterowania żółwiem 
+  
+3)
+
+__Uruchomienie__
+
+I.  W pierwszym terminalu komenda: 
+roscore
+II. W drugim:                    
+cd catkin_ws         
+source /opt/ros/melodic/setup.bash
+source devel/setup.bash
+cd src/obrepalski_szczytko/anro/launch
+roslaunch turtlelaunch.launch
 
