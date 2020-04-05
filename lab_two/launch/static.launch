@@ -1,0 +1,9 @@
+<launch>
+    <rosparam command="load" file="$(find lab_two)/yaml/urdf.yaml" />
+
+    <param name="robot_description" command="xacro --inorder '$(find lab_two)/urdf/static.urdf'"/>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-f BASE" required="true"/>
+
+</launch>

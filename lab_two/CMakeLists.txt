@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(lab_one)
+project(lab_two)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -10,7 +10,9 @@ project(lab_one)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  sensor_msgs
   std_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -70,7 +72,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs
+#   sensor_msgs#   std_msgs
 # )
 
 ################################################
@@ -86,6 +88,14 @@ find_package(catkin REQUIRED COMPONENTS
 ##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * uncomment the "generate_dynamic_reconfigure_options" section below
 ##     and list every .cfg file to be processed
+#project(prueba_kdl)
+
+#find_package(Eigen REQUIRED)
+#include_directories(${Eigen_INCLUDE_DIRS})
+#find_package(Orocos-KDL REQUIRED)
+
+#rosbuild_add_executable(prueba_kdl src/prueba.cpp)
+#target_link_libraries(${PROJECT_NAME} orocos-kdl)
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 # generate_dynamic_reconfigure_options(
@@ -104,8 +114,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES lab_one
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+  LIBRARIES lab_two
+  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs tf
 #  DEPENDS system_lib
 )
 
@@ -122,7 +132,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/lab_one.cpp
+#   src/${PROJECT_NAME}/lab_two.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -133,7 +143,12 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/lab_one_node.cpp)
+#add_executable(dh2urdf src/dh2urdf.cpp)
+#target_link_libraries(dh2urdf
+#  ${catkin_LIBRARIES}
+#)
+# add_executable(parser src/parser.cpp)
+# target_link_libraries(parser ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -166,9 +181,9 @@ include_directories(
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-# install(TARGETS ${PROJECT_NAME}_node
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+#install(TARGETS dh2urdf
+#  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#)
 
 ## Mark libraries for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
@@ -197,7 +212,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_lab_one.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_lab_two.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
