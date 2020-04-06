@@ -6,7 +6,6 @@
     <xacro:property name="parameters" value="${load_yaml('..//yaml/urdf.yaml')}"/>
 
     <!-- general parameters -->
-    <rosparam />
     <xacro:property name="ARM_width" value="${parameters['i2']['l_len']/8}"/>
 
     <!-- ARM 1 parameters -->
@@ -18,14 +17,15 @@
     <xacro:property name="ARM2_width" value="${ARM_width*0.8}"/>
     <xacro:property name="ARM2_lenght" value="${parameters['i3']['l_len']}"/>
 
-    <xacro:property name="ARM2extension_width" value="${ARM_width*0.8}"/>
+    <xacro:property name="ARM2extension_width" value="${ARM_width*0.4}"/>
     <xacro:property name="ARM2extension_lenght" value="${ARM_width*0.4}"/>
-    <xacro:property name="ARM2extension_height" value="${BASE_height}"/>
+    <xacro:property name="ARM2extension_height" value="${BASE_height*1.5}"/>
 
 
     <!-- ARM 3 parameters -->
     <xacro:property name="ARM3_width" value="${ARM_width*0.6}"/>
     <xacro:property name="ARM3_height" value="${ARM_width*1.2}"/>
+    <xacro:property name="ARM3_upper_limit" value="${( BASE_height - ARM3_height/2 )}"/>
 
 
     <!-- BASE parameters -->
@@ -88,7 +88,7 @@
             <geometry>
                 <box size="${ARM2extension_lenght} ${ARM2extension_width} ${ARM2extension_height}"/>
             </geometry>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 ${BASE_height/-4}" rpy="0 0 0"/>
             <material name="green"/>
         </visual>
     </link>
@@ -126,7 +126,7 @@
         <child link="ARM3"/>
         <origin xyz="${parameters['i3']['j_xyz']}" rpy="${parameters['i3']['j_rpy']}"/>
         <axis xyz="0 0 1"/> 
-        <limit effort="1000.0" lower="${BASE_height/-2}" upper="${BASE_height/2}" velocity="0.5"/>       
+        <limit effort="1000.0" lower="${BASE_height/-2}" upper="${ARM3_upper_limit}" velocity="0.5"/>       
     </joint>
 
     <joint name="ARM2_ARM2extension" type="fixed">

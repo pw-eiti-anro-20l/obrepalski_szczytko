@@ -6,7 +6,6 @@
     <xacro:property name="parameters" value="${load_yaml('..//yaml/urdf.yaml')}"/>
 
     <!-- general parameters -->
-    <rosparam />
     <xacro:property name="ARM_width" value="${parameters['i2']['l_len']/8}"/>
 
     <!-- ARM 1 parameters -->
