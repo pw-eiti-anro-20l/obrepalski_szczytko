@@ -17,9 +17,6 @@ def callback(data):
     zaxis = (0,0,1)
     
     
-    result_matrix=translation_matrix((0,0,0))
-    
-    
     #ARM 1    
     a, d, al, th = dh['i1']
     a, d, al, th = float(a), float(d), float(al), float(th)
