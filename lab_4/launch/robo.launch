@@ -1,0 +1,10 @@
+<launch>
+    <rosparam command="load" file="$(find lab_4)/yaml/urdf.yaml"/>
+    <param name="robot_description" command="xacro --inorder '$(find lab_4)/urdf/dynamic.urdf'"/>
+    <arg name="gui" default="true" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <param name="use_gui" value="$(arg gui)"/>
+    <node name="rviz" pkg="rviz" type="rviz" args ="-f base_link" required="true"/>
+    <node pkg="rostopic" type="rostopic" name="rostopic" args="pub joint_states sensor_msgs/JointState -- '[0, now, base_link]' '[joint1, joint2, joint3]' '[0.0,0.0,0.0]' '[]' '[]'"/>
+
+</launch>
