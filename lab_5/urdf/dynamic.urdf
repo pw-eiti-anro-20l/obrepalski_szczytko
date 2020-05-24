@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <!-- LOAD parameters -->
+    <xacro:property name="parameters" value="${load_yaml('..//yaml/urdf.yaml')}"/>
+
+    <!-- general parameters -->
+    <xacro:property name="ARM_width" value="${parameters['i2']['l_len']/8}"/>
+
+    <!-- ARM 1 parameters -->
+    <xacro:property name="ARM1_width" value="${ARM_width}"/>
+    <xacro:property name="ARM1_lenght" value="${parameters['i2']['l_len']}"/>
+
+
+    <!-- ARM 2 parameters -->
+    <xacro:property name="ARM2_width" value="${ARM_width*0.8}"/>
+    <xacro:property name="ARM2_lenght" value="${parameters['i3']['l_len']}"/>
+
+    <xacro:property name="ARM2extension_width" value="${ARM_width*0.4}"/>
+    <xacro:property name="ARM2extension_lenght" value="${ARM_width*0.4}"/>
+    <xacro:property name="ARM2extension_height" value="${BASE_height*1.5}"/>
+
+
+    <!-- ARM 3 parameters -->
+    <xacro:property name="ARM3_width" value="${ARM_width*0.6}"/>
+    <xacro:property name="ARM3_height" value="${ARM_width*1.2}"/>
+    <xacro:property name="ARM3_upper_limit" value="${( BASE_height - ARM3_height/2 )}"/>
+
+
+    <!-- BASE parameters -->
+    <xacro:property name="BASE_height" value="${parameters['i2']['l_len']/2}"/>
+    <xacro:property name="BASE_radius" value="${parameters['i2']['l_len']/4}"/>
+
+
+    <!-- MATERIALS (colors) -->
+    <material name="blue">
+        <color rgba="0 0 1 1"/>
+    </material>
+
+    <material name="white"> 
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="red"> 
+        <color rgba="1 0 0 1"/>
+    </material>
+
+   <material name="green"> 
+        <color rgba="0 1 0 1"/>
+   </material>
+
+
+    <!-- LINKS		LINKS		LINKS		LINKS		LINKS -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder length="${BASE_height}" radius="${BASE_radius}"/>
+            </geometry>
+            <origin xyz="0 0 ${BASE_height/2}"/>
+            <material name="red"/>
+        </visual>
+    </link>
+
+    <link name="link1">
+        <visual>
+            <geometry>
+                <box size="${ARM1_lenght} ${ARM1_width} ${ARM1_width}"/>
+            </geometry>
+            <origin xyz="${parameters['i2']['l_xyz']}" rpy="${parameters['i2']['l_rpy']}"/>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+
+    <link name="link2">
+        <visual>
+            <geometry>
+                <box size="${ARM2_lenght} ${ARM2_width} ${ARM2_width}"/>
+            </geometry>
+            <origin xyz="${parameters['i3']['l_xyz']}" rpy="${parameters['i3']['l_rpy']}"/>
+            <material name="green"/>
+        </visual>
+    </link>
+
+  
+    <link name="link3">
+        <visual>
+            <geometry>
+                <box size="${ARM3_width} ${ARM3_width} ${ARM3_height}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <link name="link4">
+        <visual>
+            <geometry>
+                <box size="${ARM2extension_lenght} ${ARM2extension_width} ${ARM2extension_height}"/>
+            </geometry>
+            <origin xyz="0 0 ${BASE_height/-4}" rpy="0 0 0"/>
+            <material name="green"/>
+        </visual>
+    </link>
+
+
+
+    <!-- JOINTS		JOINTS		JOINTS		JOINTS		JOINTS -->
+    <joint name="joint1" type="continuous">	
+        <parent link="base_link"/>
+        <child link="link1"/>
+        <origin xyz="0 0 ${BASE_height}" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="joint2" type="continuous">
+        <parent link="link1"/>
+        <child link="link2"/>
+        <origin xyz="${parameters['i2']['j_xyz']}" rpy="${parameters['i2']['j_rpy']}"/>
+        <axis xyz="0 0 1"/>       
+    </joint>
+
+    <joint name="joint3" type="prismatic">
+        <parent link="link2"/>
+        <child link="link3"/>
+        <origin xyz="${parameters['i3']['j_xyz']}" rpy="${parameters['i3']['j_rpy']}"/>
+        <axis xyz="0 0 1"/> 
+        <limit effort="1000.0" lower="${BASE_height/-2}" upper="${ARM3_upper_limit}" velocity="0.5"/>       
+    </joint>
+
+    <joint name="joint4" type="fixed">
+        <parent link="link2"/>
+        <child link="link4"/>
+        <origin xyz="${ARM2_lenght} 0 0" rpy="0 0 0"/>       
+    </joint>
+
+
+</robot>

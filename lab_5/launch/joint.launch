@@ -1,0 +1,5 @@
+<launch>
+    <node name="oint" pkg="lab_5" type="oint.py" />
+
+    <node name="ikin" pkg="lab_5" type="ikin.py" launch-prefix="gnome-terminal -e"/>
+</launch>
