@@ -1,5 +1,6 @@
 <launch>
     <node name="oint" pkg="lab_5" type="oint.py" />
-
+    <node name="ocmd" pkg="lab_5" type="ocmd.py" />
+    <node name="NONKDL_DKIN" pkg="lab_5" type="NONKDL_DKIN.py" />
     <node name="ikin" pkg="lab_5" type="ikin.py" launch-prefix="gnome-terminal -e"/>
 </launch>

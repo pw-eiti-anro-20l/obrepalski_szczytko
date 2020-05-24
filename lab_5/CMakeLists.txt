@@ -58,6 +58,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    jint_control.srv
    oint_control.srv
+   ocmd_control.srv
  )
 
 ## Generate actions in the 'action' folder

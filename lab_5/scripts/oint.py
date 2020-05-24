@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-from lab_4.srv import oint_control
+from lab_5.srv import oint_control
 from geometry_msgs.msg import PoseStamped
 
 from time import sleep
